@@ -1,71 +1,83 @@
-import time
-from selenium import webdriver
+from selenium.webdriver.common.by import By
 
-from urban_routes_main_page import UrbanRoutesPage  # Import the POM class
+# Defining the page class, locators and method in the class
+class UrbanRoutesPage:
+    # Locators as class attributes
+    FROM_LOCATOR = (By.ID, 'from')
+    TO_LOCATOR = (By.ID, 'to')
+    CUSTOM_OPTION_LOCATOR = (By.XPATH, '//div[text()="Custom"]')
+    DRIVE_ICON_LOCATOR = (By.XPATH, '(//img[@src="/static/media/car.8a2b1ff5.svg"])[2]')
+    BOOK_BUTTON_LOCATOR = (By.XPATH, '//button[@class="button round"]')
+    CAMPING_LOCATOR = (By.XPATH, '//div[contains(text(),"Camping")]')
+    AUDI_TEXT_LOCATOR = (By.XPATH, '//div[contains(text(),"Audi A3 Sedan")]')
+    ADD_DRIVER_LICENSE_LOCATOR = (By.XPATH, '(//div[contains(text(),"Add a driver")])[2]')
+    FIRST_NAME_LOCATOR = (By.ID, 'firstName')
+    LAST_NAME_LOCATOR = (By.ID, 'lastName')
+    DATE_OF_BIRTH_LOCATOR = (By.ID, 'birthDate')
+    NUMBER_LOCATOR = (By.ID, 'number')
+    ADD_BUTTON_LOCATOR = (By.XPATH, '//button[@type="submit" and text()="Add"]')
+    ADD_A_DRIVER_LICENCE_TITLE_LOCATOR = (By.XPATH, '//div[contains(text(),"Add a driver")]')
+    VERIFICATION_TEXT_LOCATOR = (By.XPATH, '//div[@class="section active"]//div[@style="margin-bottom: 30px;"]')
 
+    def __init__(self, driver):
+        self.driver = driver  # Initialize the driver
 
-def test_add_driver_license_custom_camping_option():
-    driver = webdriver.Chrome()
-    # Open the app - update the URL after starting the server
-    driver.get('https://cnt-932267f3-a263-441e-ac4d-b70fa84058e0.containerhub.tripleten-services.com')
+    def enter_from_location(self, from_text):
+        # Enter From
+        self.driver.find_element(*self.FROM_LOCATOR).send_keys(from_text)
 
-    # Create an instance of the page class
-    urban_routes_page = UrbanRoutesPage(driver)
+    def enter_to_location(self, to_text):
+        # Enter To
+        self.driver.find_element(*self.TO_LOCATOR).send_keys(to_text)
 
-    # Step 1: Enter the "From" address
-    ...
+    def click_custom_option(self):
+        # Click Custom
+        self.driver.find_element(*self.CUSTOM_OPTION_LOCATOR).click()
 
-    # Step 2: Enter the "To" address
-    ...
+    def click_drive_icon(self):
+        # Click Drive Icon
+        self.driver.find_element(*self.DRIVE_ICON_LOCATOR).click()
 
-    # Step 3: Choose "Custom"
-    ...
-    time.sleep(2)  # Adding delay for visibility; optional
+    def click_book_button(self):
+        # Click Book Button
+        self.driver.find_element(*self.BOOK_BUTTON_LOCATOR).click()
 
-    # Step 4: Click "Drive"
-    ...
-    time.sleep(2)  # Adding delay for visibility; optional
+    def click_camping(self):
+        # Click Camping
+        self.driver.find_element(*self.CAMPING_LOCATOR).click()
 
-    # Step 5: Click "Book"
-    ...
-    time.sleep(2)  # Adding delay for visibility; optional
+    def get_audi_text(self):
+        # Return the "Audi" text
+        return self.driver.find_element(*self.AUDI_TEXT_LOCATOR).text
 
-    # Step 6: Choose "Camping"
-    ...
-    time.sleep(2)  # Adding delay for visibility; optional
+    def click_add_driver_license(self):
+        # Click Add Driver's Licence
+        self.driver.find_element(*self.ADD_DRIVER_LICENSE_LOCATOR).click()
 
-    # Step 7: Click “Add a driver’s license”
-    ...
-    time.sleep(2)  # Adding delay for visibility; optional
+    def enter_first_name(self, first_name):
+        # Enter First Name
+        self.driver.find_element(*self.FIRST_NAME_LOCATOR).send_keys(first_name)
 
-    # Step 8: Fill out the “First name” field
-    ...
-    time.sleep(2)  # Adding delay for visibility; optional
+    def enter_last_name(self, last_name):
+        # Enter Last Name
+        self.driver.find_element(*self.LAST_NAME_LOCATOR).send_keys(last_name)
 
-    # Step 9: Fill out the “Last name” field
-    ...
-    time.sleep(2)  # Adding delay for visibility; optional
+    def enter_date_of_birth(self, date_of_birth):
+        # Enter Date of Birth
+        self.driver.find_element(*self.DATE_OF_BIRTH_LOCATOR).send_keys(date_of_birth)
 
-    # Step 10: Fill out the “Date of birth” field
-    ...
-    time.sleep(2)  # Adding delay for visibility; optional
+    def enter_number(self, number):
+        # Enter Number
+        self.driver.find_element(*self.NUMBER_LOCATOR).send_keys(number)
 
-    # Step 11: Fill out the “Number” field
-    ...
-    time.sleep(2)  # Adding delay for visibility; optional
+    def click_title(self):
+        # Click Add a Driver's License Title
+        self.driver.find_element(*self.ADD_A_DRIVER_LICENCE_TITLE_LOCATOR).click()
 
-    # Step 12: Click "title" to make the Add button clickable
-    ...
-    time.sleep(2)  # Adding delay for visibility; optional
+    def click_add_button(self):
+        # Click Add Button
+        self.driver.find_element(*self.ADD_BUTTON_LOCATOR).click()
 
-    # Step 13: Click “Add”
-    ...
-    time.sleep(2)  # Adding delay for visibility; optional
-
-    # Step 14: Check that the licence has been added
-    actual_value = ...
-    expected_value = ...
-    assert ...
-    driver.quit()
-
-
+    def get_verification_text(self):
+        # Return the verification text
+        return self.driver.find_element(*self.VERIFICATION_TEXT_LOCATOR).text
